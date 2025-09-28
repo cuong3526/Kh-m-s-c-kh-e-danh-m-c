@@ -80,23 +80,23 @@ export const InputSection: React.FC<InputSectionProps> = ({
                         )}
                     </div>
                     <NumberInput 
-                        label="Số lượng cổ phiếu trong danh mục"
-                        value={numStocks}
-                        onChange={(val) => handleNumStocksChange(val || 0)}
-                        placeholder="Nhập số lượng"
-                        min={1}
+                        label="Số tiền mặt hiện có (triệu)"
+                        value={cashBalance}
+                        onChange={setCashBalance}
+                        placeholder="Nhập số tiền mặt"
+                        min={0}
                         step={1}
-                        icon={<ListIcon />}
+                        icon={<CashIcon />}
                     />
                     <div className="md:col-span-2">
-                        <NumberInput 
-                            label="Số tiền mặt hiện có (triệu)"
-                            value={cashBalance}
-                            onChange={setCashBalance}
-                            placeholder="Nhập số tiền mặt"
-                            min={0}
+                         <NumberInput 
+                            label="Số lượng cổ phiếu trong danh mục"
+                            value={numStocks}
+                            onChange={(val) => handleNumStocksChange(val || 0)}
+                            placeholder="Nhập số lượng"
+                            min={1}
                             step={1}
-                            icon={<CashIcon />}
+                            icon={<ListIcon />}
                         />
                     </div>
                 </div>
