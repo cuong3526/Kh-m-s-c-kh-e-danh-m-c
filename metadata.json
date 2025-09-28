@@ -1,0 +1,5 @@
+{
+  "name": "Stock Portfolio Health Check",
+  "description": "An application to analyze a stock portfolio's health based on Vnindex safety level, individual stock RSIV values, and investment amounts. It provides recommendations for portfolio adjustments.",
+  "requestFramePermissions": []
+}
