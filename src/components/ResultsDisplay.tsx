@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import type { AnalysisResult } from '../types';
 
 declare global {
@@ -24,6 +24,7 @@ const WarningIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-7
 
 export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results }) => {
     const resultsRef = useRef<HTMLDivElement>(null);
+    const [hideAmounts, setHideAmounts] = useState<boolean>(false);
 
     const generateImage = () => {
         if (!resultsRef.current || !window.html2canvas) {
@@ -95,7 +96,10 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results }) => {
                             </p>
                             <p className="mt-1 text-slate-600">với số tiền khoảng</p>
                             <p className="text-3xl font-bold text-green-600 mt-1">
-                                {results.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} triệu
+                                {hideAmounts 
+                                    ? '***' 
+                                    : results.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                } triệu
                             </p>
                         </div>
                     </Card>
@@ -123,6 +127,22 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results }) => {
             </div>
             
             <div className="text-center pt-8">
+                <div className="flex items-center justify-center space-x-3 mb-6">
+                    <label htmlFor="hide-amounts-toggle" className="text-slate-600 font-medium cursor-pointer">
+                        Che số tiền
+                    </label>
+                    <label htmlFor="hide-amounts-toggle" className="relative inline-flex items-center cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={hideAmounts}
+                            onChange={() => setHideAmounts(!hideAmounts)}
+                            id="hide-amounts-toggle"
+                            className="sr-only peer"
+                            aria-label="Toggle amount visibility"
+                        />
+                        <div className="w-11 h-6 bg-slate-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
                  <button
                     onClick={generateImage}
                     className="bg-green-600 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-md hover:bg-green-700 transition-all duration-300 transform hover:scale-105"
